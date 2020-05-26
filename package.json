@@ -1,0 +1,27 @@
+{
+  "name": "next2505",
+  "version": "1.0.0",
+  "description": "Projeto HcodeLab Web Professional Next.JS",
+  "main": "index.js",
+  "scripts": { 
+    "dev":"next dev -p 3200",
+    "build":"next build",
+    "start":"next start"
+  },
+  "keywords": [
+    "hcode",
+    "javascript",
+    "react",
+    "nextjs",
+    "nodejs",
+    "adonisjs",
+    "mysql"
+  ],
+  "author": "Glaucio Daniel",
+  "license": "MIT",
+  "devDependencies": {
+    "next": "^9.4.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  }
+}

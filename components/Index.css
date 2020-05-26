@@ -1,0 +1,12 @@
+@import 'open-sans.css';
+@import 'variables.css';
+@import 'defaults.css';
+@import 'header.css';
+@import 'footer.css';
+@import 'home.css';
+@import 'our-history.css';
+@import 'contact.css';
+@import 'login.css';
+@import 'register.css';
+@import 'gallery.css';
+@import 'error.css';
