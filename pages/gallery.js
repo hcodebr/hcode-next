@@ -7,6 +7,7 @@ import styles from '../components/Gallery.module.css'
 export default function Gallery(){
 
     return (
+        //JSX fragment - Fragmento JSX - <> </>
         <>
             <Header />
             <main id={ styles.gallery} className={styles.page}>

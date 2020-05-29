@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "Projeto HcodeLab Web Professional Next.JS",
   "main": "index.js",
-  "scripts": { 
-    "dev":"next dev -p 3200",
-    "build":"next build",
-    "start":"next start"
+  "scripts": {
+    "dev": "next dev -p 3200",
+    "build": "next build",
+    "start": "next start"
   },
   "keywords": [
     "hcode",
@@ -14,8 +14,7 @@
     "react",
     "nextjs",
     "nodejs",
-    "adonisjs",
-    "mysql"
+    "adonisjs"
   ],
   "author": "Glaucio Daniel",
   "license": "MIT",
@@ -23,5 +22,8 @@
     "next": "^9.4.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
+  },
+  "dependencies": {
+    "mysql": "^2.18.1"
   }
 }
