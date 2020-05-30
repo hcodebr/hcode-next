@@ -28,6 +28,7 @@ export default function Login(){
                 cookies.set('token', tokenData)
                 console.log('Usuário autenticado!')
                 alert('Usuário autorizado! Vamos para o Admin')
+                window.location.href=("/admin")
             }
         )
         .catch(err => console.log('Deu ruim', err.message))
@@ -49,14 +50,14 @@ export default function Login(){
                                         <input type="email" name="email" id="email" onChange={handleInputChange}
                                         onFocus={handleInputChange} />
 
-                                        <label for="email">E-mail</label>
+                                        <label htmlFor="email">E-mail</label>
                                     </div>
                                     <div className={styles.field}>
 
                                         <input type="password" name="password" id="password" onChange={handleInputChange}
                                         onFocus={handleInputChange} />
 
-                                        <label for="password">Senha</label>
+                                        <label htmlFor="password">Senha</label>
                                     </div>
                                 </div>
                                 <div className={styles.actions}>
