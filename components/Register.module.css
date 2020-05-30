@@ -1,0 +1,236 @@
+#__next {
+    flex-direction: column;
+}
+
+.page {
+    flex-direction: column;
+}
+.page .page-header {
+    width: 100%;
+    flex-direction: column;
+}
+.page header {
+    height: 210px;
+    width: 100%;
+    background-size: cover;
+    filter: brightness(0.5);
+    flex-direction: column;
+    justify-content: flex-end;
+    color: var(--white);
+    padding: 1em;
+}
+
+.page header ul,
+.page header li, 
+.page header h1 {
+    margin: 0;
+    padding: 0;
+}
+
+#register form {
+    flex-direction: column;
+    padding: 1em;
+    width: 100%;
+}
+
+#register form .fields {
+    flex-direction: column;
+}
+
+#register form .field {
+    position: relative;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 1em;
+}
+
+#register form .field label {
+    color: var(--grayC);
+    font-size: 14px;
+    position: absolute;
+    z-index: 2;
+    left: 10px;
+    top: 10px;
+    transition: color .3s ease-in-out;
+}
+
+#register form .field input,
+#register form .field textarea {
+    line-height: 1.5em;
+    padding: 10px;
+    padding-top: 30px;
+    font-size: 14px;
+    color: var(--gray5);
+    outline: none;
+    font-family: 'Open Sans';
+    border: var(--grayC) 2px solid;
+    border-radius: 5px;
+    position: relative;
+    z-index: 1;
+    top: 0;
+    transition: border-color .3s ease-in-out;
+}
+
+#register form .field input:focus,
+#register form .field textarea:focus {
+    border-color: var(--green);
+}
+
+#register form .field input:focus + label,
+#register form .field textarea:focus + label {
+    color: var(--green);
+}
+
+#register form .actions {
+    flex-direction: column;
+    align-content: center;
+}
+#register form .actions a {
+    display: block;
+    text-align: center;
+    padding: 1em;
+    color: var(--gray6);
+}
+
+#register form button {
+    width: 100%;
+    background-color: var(--green);
+    color: var(--white);
+    border: none;
+    padding: .5em 1em;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    font-weight: bold;
+    border-radius: 5px;
+    outline: none;
+    text-transform: uppercase;
+}
+
+#register form button:hover {
+    background-color: var(--green-hover);
+}
+
+#register form button:active {
+    background-color: var(--green-active);
+}
+
+#register.page header {
+    background-image: url('/images/header-register.png');
+}
+
+#register.page p {
+    font-weight: 600;
+    color: var(--gray6);
+    text-align: center;
+    margin: 2em 0;
+}
+
+#register.page section form > div {
+    width: 100%;
+    flex-direction: column;
+}
+
+#register.page section .image {
+    display: none;
+}
+
+@media (min-width: 576px) {
+    .page header {
+        height: 20vw;
+        min-height: 300px;
+    }
+    #register.page header {
+        background-image: url('/images/header-register@2x.png');
+    }
+}
+
+@media (min-width: 992px) {
+    
+    .page header  {
+        filter: none;
+        align-items: flex-end;
+    }
+    .page header li {
+        font-size: 30px;
+    }
+    .page header h1 {
+        font-size: 100px;
+        text-shadow: 0 3px 6px var(--black15);
+    }
+    #register form .fields {
+        flex-direction: row;
+    }
+    #register form .fields .field {
+        margin-right: 1em;
+    }
+    #register form .fields .field:last-child {
+        margin-right: 0;
+    }
+    #register form .actions {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    #register form .actions a {
+        text-align: right;
+    }
+    #register form .field textarea {
+        min-height: 250px;
+    }
+    #register form button {
+        max-width: 340px;
+    }
+    hr.italy {
+        position: absolute;
+    }
+    #register.page {
+        position: relative;
+    }
+    #register.page section {
+        flex-direction: row;
+        min-height: calc(100vh - 396px);
+    }
+    #register.page section .image,
+    #register.page section form {
+        flex: 1;
+        width: initial;
+        display: flex;
+    }
+    #register.page section form {
+        padding: 30px;
+        padding-top: 150px;
+        flex-direction: column-reverse;
+        justify-content: flex-end;
+    }
+    #register.page section form p {
+        text-align: left;
+    }
+    #register.page section .image {
+        background-image: url('/images/header-register@3x.png');
+        background-size: cover;
+        align-self: stretch;
+    }
+    #register.page header {
+        background: none;
+        left: 50vw;
+        top: 120px;
+        z-index: 3;
+        height: initial;
+        justify-content: flex-start;
+        color: var(--green);
+        padding: 0;
+        border-bottom: var(--red) 4px solid;
+        width: 50px;
+        position: relative;
+    }
+    #register.page header h1 {
+        color: var(--green);
+        font-size: 32px;
+        text-shadow: none;
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        padding-bottom: 10px;
+    }
+}
