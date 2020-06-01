@@ -48,6 +48,34 @@ class UserController {
         await user.delete()
     }
 
+    /**
+       * Alterar a senha
+       */
+    async changePassword({ params, request, response, auth }){
+
+      if(parseInt(params.id) !== auth.user.id) {
+        return response.status(401).send({ error: 'Not authorized'})
+      }
+
+      //Carrega o usuário do banco
+      const user = await User.findOrFail(params.id)
+
+      //Obtem a senha atual e a nova do POST
+      const data = request.only(['passwordCurrent','passwordNew'])
+
+      //Tenta autenticar com a senha atual. Se não conseguir será retornado um erro
+      await auth.attempt(user.email, data.passwordCurrent)
+
+      //Define a nova senha no usuário
+      user.password = data.passwordNew
+
+      //Salva no banco
+      await user.save()
+
+      //Retorna os dados do usuário em JSON
+      return user
+    }
+
 }
 
 module.exports = UserController

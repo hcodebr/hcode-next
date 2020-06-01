@@ -26,5 +26,6 @@ Route.group(()=>{
   Route.resource('users','UserController').apiOnly()
   Route.resource('contacts','ContactController').apiOnly()
   Route.resource('users','UserController').apiOnly()
+  Route.put('users/:id/password','UserController.changePassword')
 
 }).prefix('admin').middleware(['auth'])
