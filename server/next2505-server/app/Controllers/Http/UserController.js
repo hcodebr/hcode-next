@@ -53,10 +53,6 @@ class UserController {
        */
     async changePassword({ params, request, response, auth }){
 
-      if(parseInt(params.id) !== auth.user.id) {
-        return response.status(401).send({ error: 'Not authorized'})
-      }
-
       //Carrega o usuário do banco
       const user = await User.findOrFail(params.id)
 
