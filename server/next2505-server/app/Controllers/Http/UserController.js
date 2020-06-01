@@ -14,6 +14,19 @@ class UserController {
         return user
     }
 
+    async update({ params, request, response }){
+
+      const user = await User.findOrFail(params.id)
+
+      const data = request.only(['name','email','photo','birth_at','level','password'])
+
+      user.merge(data)
+
+      await user.save()
+
+      return user
+  }
+
     async index() {
         return await User.all()
     }
@@ -31,6 +44,7 @@ class UserController {
         if(user.id !== auth.user.id) {
             return response.status(401).send({ error: 'Not authorized'})
         }
+
         await user.delete()
     }
 }
