@@ -47,6 +47,7 @@ class UserController {
 
         await user.delete()
     }
+
 }
 
 module.exports = UserController

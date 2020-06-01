@@ -11,6 +11,8 @@ Route.post('/auths','AuthController.store')
 Route.post('/users','UserController.store')
 Route.post('/contact','ContactController.store')
 
+Route.get('/me','AuthController.me').middleware(['auth'])
+
 /*
 Route.get('/admin/users', 'UserController.index')
 Route.get('/admin/users/:id', 'UserController.show')
@@ -20,9 +22,9 @@ JWT - Json Web Token
 */
 
 Route.group(()=>{
+
   Route.resource('users','UserController').apiOnly()
   Route.resource('contacts','ContactController').apiOnly()
   Route.resource('users','UserController').apiOnly()
 
 }).prefix('admin').middleware(['auth'])
-

@@ -9,6 +9,11 @@ class AuthController {
 
         return token
     }
+
+    async me({ auth }){
+      const { id, name, email, photo, birth_at, level } = auth.user
+      return { id, name, email, photo, birth_at, level }
+    }
 }
 
 module.exports = AuthController
