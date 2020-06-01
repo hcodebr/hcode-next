@@ -11,8 +11,9 @@ class AuthController {
     }
 
     async me({ auth }){
-      const { id, name, email, photo, birth_at, level } = auth.user
-      return { id, name, email, photo, birth_at, level }
+      let user = auth.user.toJSON()
+      delete user.password
+      return user
     }
 }
 
