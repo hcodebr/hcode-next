@@ -3,6 +3,12 @@
 // carregando os dados do usuário vindo do MySQL
 // utilizando o Model User
 const User = use('App/Models/User')
+const Helpers = use('Helpers')
+const fs = use('fs')
+const readFile = Helpers.promisify(fs.readFile)
+
+const uploadDir = 'uploads'
+
 
 class UserController {
 
@@ -70,6 +76,51 @@ class UserController {
 
       //Retorna os dados do usuário em JSON
       return user
+    }
+
+    async changePhoto({ params, request, response }) {
+
+      const photo = request.file('file', {
+        maxSize: '2mb',
+        allowedExtensions: ['jpg', 'png', 'jpeg']
+      })
+
+      if (!photo) {
+        response.status(400).json({error:'File required!'})
+        return
+      }
+
+      const user = await User.findOrFail(params.id)
+
+      const name = `${user.id}/photo.${photo.extname}`
+
+      await photo.move(Helpers.resourcesPath(uploadDir), {
+        name,
+        overwrite: true
+      })
+
+      if (!photo.moved()) {
+        response.status(400).json({'error': photo.error()})
+        return
+      }
+
+      user.photo = `${uploadDir}/${name}`
+
+      await user.save()
+
+      return user
+
+    }
+
+    async photo({ params, response }) {
+
+      const user = await User.findOrFail(params.id)
+
+      const content = await readFile(Helpers.resourcesPath(user.photo))
+
+      response.header('Content-type', 'image/*').send(content)
+      return
+
     }
 
 }
