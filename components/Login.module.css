@@ -1,0 +1,236 @@
+#__next {
+    flex-direction: column;
+}
+
+.page {
+    flex-direction: column;
+}
+.page .page-header {
+    width: 100%;
+    flex-direction: column;
+}
+.page header {
+    height: 210px;
+    width: 100%;
+    background-size: cover;
+    filter: brightness(0.5);
+    flex-direction: column;
+    justify-content: flex-end;
+    color: var(--white);
+    padding: 1em;
+}
+
+.page header ul,
+.page header li, 
+.page header h1 {
+    margin: 0;
+    padding: 0;
+}
+
+#login form {
+    flex-direction: column;
+    padding: 1em;
+    width: 100%;
+}
+
+#login form .fields {
+    flex-direction: column;
+}
+
+#login form .field {
+    position: relative;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 1em;
+}
+
+#login form .field label {
+    color: var(--grayC);
+    font-size: 14px;
+    position: absolute;
+    z-index: 2;
+    left: 10px;
+    top: 10px;
+    transition: color .3s ease-in-out;
+}
+
+#login form .field input,
+#login form .field textarea {
+    line-height: 1.5em;
+    padding: 10px;
+    padding-top: 30px;
+    font-size: 14px;
+    color: var(--gray5);
+    outline: none;
+    font-family: 'Open Sans';
+    border: var(--grayC) 2px solid;
+    border-radius: 5px;
+    position: relative;
+    z-index: 1;
+    top: 0;
+    transition: border-color .3s ease-in-out;
+}
+
+#login form .field input:focus,
+#login form .field textarea:focus {
+    border-color: var(--green);
+}
+
+#login form .field input:focus + label,
+#login form .field textarea:focus + label {
+    color: var(--green);
+}
+
+#login form .actions {
+    flex-direction: column;
+    align-content: center;
+}
+#login form .actions a {
+    display: block;
+    text-align: center;
+    padding: 1em;
+    color: var(--gray6);
+}
+
+#login form button {
+    width: 100%;
+    background-color: var(--green);
+    color: var(--white);
+    border: none;
+    padding: .5em 1em;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    font-weight: bold;
+    border-radius: 5px;
+    outline: none;
+    text-transform: uppercase;
+}
+
+#login form button:hover {
+    background-color: var(--green-hover);
+}
+
+#login form button:active {
+    background-color: var(--green-active);
+}
+
+
+#login.page header {
+    background-image: url('/images/header-login.png');
+}
+
+#login.page p {
+    font-weight: 600;
+    color: var(--gray6);
+    text-align: center;
+    margin: 2em 0;
+}
+
+#login.page section form > div {
+    width: 100%;
+    flex-direction: column;
+}
+
+#login.page section .image {
+    display: none;
+}
+
+@media (min-width: 576px) {
+    .page header {
+        height: 20vw;
+        min-height: 300px;
+    }
+    #login.page header {
+        background-image: url('/images/header-login@2x.png');
+    }
+}
+
+@media (min-width: 992px) {
+    .page header  {
+        filter: none;
+        align-items: flex-end;
+    }
+    .page header li {
+        font-size: 30px;
+    }
+    .page header h1 {
+        font-size: 100px;
+        text-shadow: 0 3px 6px var(--black15);
+    }
+    #form form .fields {
+        flex-direction: row;
+    }
+    #form form .fields .field {
+        margin-right: 1em;
+    }
+    #form form .fields .field:last-child {
+        margin-right: 0;
+    }
+    #form form .actions {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    #form form .actions a {
+        text-align: right;
+    }
+    #form form .field textarea {
+        min-height: 250px;
+    }
+    #form form button {
+        max-width: 340px;
+    }
+    hr.italy {
+        position: absolute;
+    }
+    #login.page {
+        position: relative;
+    }
+    #login.page section {
+        flex-direction: row;
+        min-height: calc(100vh - 396px);
+    }
+    #login.page section .image,
+    #login.page section form {
+        flex: 1;
+        width: initial;
+        display: flex;
+    }
+    #login.page section form {
+        padding: 30px;
+        padding-top: 150px;
+        flex-direction: column-reverse;
+        justify-content: flex-end;
+    }
+    #login.page section form p {
+        text-align: left;
+    }
+    #login.page section .image {
+        background-image: url('/images/header-login@3x.png');
+        background-size: cover;
+        align-self: stretch;
+    }
+    #login.page header {
+        background: none;
+        left: 50vw;
+        top: 120px;
+        z-index: 3;
+        height: initial;
+        justify-content: flex-start;
+        color: var(--green);
+        padding: 0;
+        border-bottom: var(--red) 4px solid;
+        width: 50px;
+        position: relative;
+    }
+    #login.page header h1 {
+        color: var(--green);
+        font-size: 32px;
+        text-shadow: none;
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        padding-bottom: 10px;
+    }
+}

@@ -1,0 +1,53 @@
+#edit-user {
+    background-color: inherit;
+}
+
+.cards {
+    margin-top: 20px;
+    flex-direction: column;
+    padding: 0;
+}
+
+.header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.header h2 {
+    font-size: 32px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.form {
+    margin-top: 15px;
+    padding: 0;
+}
+
+.form input {
+    font-size: 16px;
+    margin-top: 20px;
+    padding: 1em 0.5em;
+    width: 100%;
+    border: 1px solid var(--grayC4);
+    border-radius: 4px;
+}
+
+.form-user-data input:last-child {
+    width: 70%;
+}
+
+.avatar {
+    height: 200px;
+    margin: 30px 0;
+}
+
+@media (min-width: 576px) {
+    .cards {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+}
