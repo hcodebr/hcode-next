@@ -15,7 +15,7 @@ export default function Contacts() {
 }
 
 Contacts.getInitialProps = async (ctx) => {
-    await handleAuthSSR(ctx)
+   // await handleAuthSSR(ctx)
 
     return {}
 }

@@ -12,6 +12,7 @@ Route.post('/auths','AuthController.store')
 Route.post('/users','UserController.store')
 Route.post('/contact','ContactController.store')
 
+Route.get('/admin/users', 'UserController.index')
 Route.get('/me','AuthController.me').middleware(['auth'])
 
 /*

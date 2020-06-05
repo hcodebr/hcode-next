@@ -3,80 +3,82 @@ import styles from '../../../components/admin/Home.module.css'
 import Card from '../../../components/admin/Card'
 import Button from '../../../components/admin/Button'
 import Layout from '../../../components/admin/Layout'
+import axios from 'axios'
+import { Cookies } from 'react-cookie'
 
-export default function Index() {
-
+export default async function Index() {
+    
     const users = [{
         id: 1,
         name: 'João Rangel',
         email: 'joaohcrangel@gmail.com',
-        date: '18 de março de 2020',
+        birth_at: '18 de março de 2020',
         photo: 'user-photo.png'
     }, {
         id: 2,
         name: 'João Rangel',
         email: 'joaohcrangel@gmail.com',
-        date: '18 de março de 2020',
+        birth_at: '18 de março de 2020',
         photo: 'user-photo.png'
     }, {
         id: 3,
         name: 'João Rangel',
         email: 'joaohcrangel@gmail.com',
-        date: '18 de março de 2020',
+        birth_at: '18 de março de 2020',
         photo: 'user-photo.png'
     }, {
         id: 4,
         name: 'João Rangel',
         email: 'joaohcrangel@gmail.com',
-        date: '18 de março de 2020',
+        birth_at: '18 de março de 2020',
         photo: 'user-photo.png'
     }, {
         id: 5,
         name: 'João Rangel',
         email: 'joaohcrangel@gmail.com',
-        date: '18 de março de 2020',
+        birth_at: '18 de março de 2020',
         photo: 'user-photo.png'
     }, {
         id: 6,
         name: 'João Rangel',
         email: 'joaohcrangel@gmail.com',
-        date: '18 de março de 2020',
+        birth_at: '18 de março de 2020',
         photo: 'user-photo.png'
     }, {
         id: 7,
         name: 'João Rangel',
         email: 'joaohcrangel@gmail.com',
-        date: '18 de março de 2020',
+        birth_at: '18 de março de 2020',
         photo: 'user-photo.png'
     }, {
         id: 8,
         name: 'João Rangel',
         email: 'joaohcrangel@gmail.com',
-        date: '18 de março de 2020',
+        birth_at: '18 de março de 2020',
         photo: 'user-photo.png'
     }, {
         id: 9,
         name: 'João Rangel',
         email: 'joaohcrangel@gmail.com',
-        date: '18 de março de 2020',
+        birth_at: '18 de março de 2020',
         photo: 'user-photo.png'
     }, {
         id: 10,
         name: 'João Rangel',
         email: 'joaohcrangel@gmail.com',
-        date: '18 de março de 2020',
+        birth_at: '18 de março de 2020',
         photo: 'user-photo.png'
     }, {
         id: 11,
         name: 'João Rangel',
         email: 'joaohcrangel@gmail.com',
-        date: '18 de março de 2020',
+        birth_at: '18 de março de 2020',
         photo: 'user-photo.png'
     }, {
         id: 12,
         name: 'João Rangel',
         email: 'joaohcrangel@gmail.com',
-        date: '18 de março de 2020',
+        birth_at: '18 de março de 2020',
         photo: 'user-photo.png'
     }];
 
@@ -99,7 +101,7 @@ export default function Index() {
                                 
                                 <p>{user.email}</p>
 
-                                <p>{user.date}</p>
+                                <p>{user.birth_at}</p>
 
                             </div>
 
@@ -116,3 +118,16 @@ export default function Index() {
     )
 
 }
+
+
+// Index.getInitialProps = async (ctx)=>{
+
+//     const cookies = new Cookies();
+//     const token = cookies.get('token')
+    
+//     const config = {
+//         header: {Authorization: `Bearer ${token}`}
+//     }
+//    // const users = await axios.post('http://localhost:3333/admin/users', config)
+//     //return []
+// }
