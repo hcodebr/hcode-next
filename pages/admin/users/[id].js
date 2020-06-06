@@ -4,28 +4,86 @@ import Card from '../../../components/admin/Card'
 import styles from '../../../components/admin/UserEdit.module.css'
 import Button from '../../../components/admin/Button'
 import Layout from '../../../components/admin/Layout'
+import axios from 'axios'
+import { Cookies } from 'react-cookie'
+import {useState} from 'react'
 
-export default function Users() {
+const cookies = new Cookies()
+const token = cookies.get('token')
+const config = {
+    header: {Authorization: `Bearer ${token}`}
+}
 
-    const router = useRouter()
-    const { id } = router.query // Selecionando o ID do usuário pela URL
+export default function Users(props) {
 
-    const userObj = {
-        id: 9,
-        name: 'João Rangel',
-        email: 'joaohcrangel@gmail.com',
-        date: '18 de março de 2020',
-        photo: 'user-photo.png'
-    }
+    //YYYY-mm-dd
+    let date_at = new Date(props.user.birth_at).toISOString().split('T')[0]
     
+    // for...in 
+    const [values, setValues] = useState({name: props.user.name,  email: props.user.email,   password: props.user.password,    birth_at: date_at,     level: props.user.level,     photo: props.user.photo })
+    
+    //React Hook
+    let [nameInput, setNameInput] = useState('')
+    let [newPassInput, setNewPassInput] = useState('')
+    let [newPassword, setNewPassword] = useState('')
+    let [confirmPassword, setConfirmPassword] = useState('')
+    let [photo, setPhoto] = useState('')
+
+    const handleInputBlur = e =>{
+        const { name, value} = e.target
+        setValues({...values, [name]:value})
+        console.log(name, value)
+    }
+
+    const currentPass = async e =>{
+        e.preventDefault()
+        let pass = e.target.value
+        const values = { email: props.user.email, password: pass}
+        let passValid = false;
+        let error = ''
+        await axios.post(`http://localhost:3333/auths`, values)
+        .then(
+            res => passValid = true
+        )
+        .catch(
+            err => { 
+                passValid = false
+                error = err.message
+            }
+        )
+
+        if(!passValid) {
+            console.log("Senha atual incorreta!")
+            console.log(error)
+            nameInput.focus()
+            return
+        }
+    }
+
+    const newPass = e=> {
+        newPassword = e.target.value
+        console.log(newPassword)
+    }
+
+    const confirmPass = e => {
+        setConfirmPassword(e.target.value)
+        if(confirmPassword != newPassword){
+            alert('Senhas não conferem')
+            newPassInput.focus()
+        }
+        console.log(newPassword, confirmPassword)
+    }
+
+
+
     return (
         <Layout>
                 
-            <HeaderTitle text="Editar Usuário" /> {/* Esse código poderá ser adicionado depois, se desejar */}
+            <HeaderTitle text="Editar Usuário" /> 
 
             <section className={styles.cards}>
 
-                <Card actions={<Button>Salvar</Button>} className={styles.card}>
+                <Card actions={<Button id={props.id} action="save" values={values}>Salvar</Button>} className={styles.card}>
 
                     <div className={styles.header}>
 
@@ -45,17 +103,17 @@ export default function Users() {
                     
                     <form className={`${styles['form-user-data']} ${styles.form}`}>
 
-                        <input type="text" placeholder="Nome Completo" />
+                <input type="text" placeholder="Nome Completo" defaultValue={values.name} name="name" onBlur={handleInputBlur} />
 
-                        <input type="email" placeholder="E-mail" />
+                        <input type="email" placeholder="E-mail"  defaultValue={values.email} name="email" onBlur={handleInputBlur}/>
 
-                        <input type="date" placeholder="Data de Nascimento" />
+            <input type="date" placeholder="Data de Nascimento" defaultValue={values.birth_at} name="birth_at" onBlur={handleInputBlur} />
 
                     </form>
 
                 </Card>
 
-                <Card actions={<Button>Alterar</Button>}>
+                <Card actions={<Button action="savePass" id={props.id}>Alterar</Button>}>
 
                     <div className={styles.header}>
                     
@@ -65,11 +123,11 @@ export default function Users() {
                     
                     <form className={styles.form}>
 
-                        <input type="password" placeholder="Senha Atual" />
+                        <input type="password" placeholder="Senha Atual"onBlur={currentPass} ref={nameInput => setNameInput(nameInput)} />
 
-                        <input type="password" placeholder="Nova Senha" />
+                        <input type="password" placeholder="Nova Senha"onBlur={newPass} ref={newPassInput => setNewPassInput(newPassInput)} />
 
-                        <input type="password" placeholder="Confirme a Nova Senha" />
+                        <input type="password" placeholder="Confirme a Nova Senha" onBlur={ confirmPass} name="password" onChange={handleInputBlur} />
 
                     </form>
 
@@ -92,4 +150,17 @@ export default function Users() {
         </Layout>
     )
 
+}
+
+//carregando informações sobre quem é o tal usuário [id].js 
+Users.getInitialProps = async ({query}) =>{
+
+    const {id } = query
+    let user = []
+    user = await axios.get(`http://localhost:3333/admin/users/${id}`, config)
+
+    return {
+        "user": user.data,
+        "id": id
+    }
 }

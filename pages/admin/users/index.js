@@ -3,82 +3,19 @@ import styles from '../../../components/admin/Home.module.css'
 import Card from '../../../components/admin/Card'
 import Button from '../../../components/admin/Button'
 import Layout from '../../../components/admin/Layout'
+import axios from 'axios'
+import { Cookies } from 'react-cookie'
 
-export default function Index() {
+const cookies = new Cookies()
+const token = cookies.get('token')
+const config = {
+    header: {Authorization: `Bearer ${token}`}
+}
+const serverURL = "http://localhost:3333"
 
-    const users = [{
-        id: 1,
-        name: 'João Rangel',
-        email: 'joaohcrangel@gmail.com',
-        date: '18 de março de 2020',
-        photo: 'user-photo.png'
-    }, {
-        id: 2,
-        name: 'João Rangel',
-        email: 'joaohcrangel@gmail.com',
-        date: '18 de março de 2020',
-        photo: 'user-photo.png'
-    }, {
-        id: 3,
-        name: 'João Rangel',
-        email: 'joaohcrangel@gmail.com',
-        date: '18 de março de 2020',
-        photo: 'user-photo.png'
-    }, {
-        id: 4,
-        name: 'João Rangel',
-        email: 'joaohcrangel@gmail.com',
-        date: '18 de março de 2020',
-        photo: 'user-photo.png'
-    }, {
-        id: 5,
-        name: 'João Rangel',
-        email: 'joaohcrangel@gmail.com',
-        date: '18 de março de 2020',
-        photo: 'user-photo.png'
-    }, {
-        id: 6,
-        name: 'João Rangel',
-        email: 'joaohcrangel@gmail.com',
-        date: '18 de março de 2020',
-        photo: 'user-photo.png'
-    }, {
-        id: 7,
-        name: 'João Rangel',
-        email: 'joaohcrangel@gmail.com',
-        date: '18 de março de 2020',
-        photo: 'user-photo.png'
-    }, {
-        id: 8,
-        name: 'João Rangel',
-        email: 'joaohcrangel@gmail.com',
-        date: '18 de março de 2020',
-        photo: 'user-photo.png'
-    }, {
-        id: 9,
-        name: 'João Rangel',
-        email: 'joaohcrangel@gmail.com',
-        date: '18 de março de 2020',
-        photo: 'user-photo.png'
-    }, {
-        id: 10,
-        name: 'João Rangel',
-        email: 'joaohcrangel@gmail.com',
-        date: '18 de março de 2020',
-        photo: 'user-photo.png'
-    }, {
-        id: 11,
-        name: 'João Rangel',
-        email: 'joaohcrangel@gmail.com',
-        date: '18 de março de 2020',
-        photo: 'user-photo.png'
-    }, {
-        id: 12,
-        name: 'João Rangel',
-        email: 'joaohcrangel@gmail.com',
-        date: '18 de março de 2020',
-        photo: 'user-photo.png'
-    }];
+export default function Index(props) {
+
+   const users = props.users
 
     return (
         <Layout>
@@ -89,7 +26,7 @@ export default function Index() {
 
                 {users.map(user => (
 
-                    <Card actions={<Button>Editar</Button>} key={user.id}> {/* Poderemos fazer essa refatoração depois */}
+                    <Card key={user.id}> 
 
                         <div className={styles['user-info']}>
 
@@ -99,14 +36,14 @@ export default function Index() {
                                 
                                 <p>{user.email}</p>
 
-                                <p>{user.date}</p>
+                                <p>{user.birth_at}</p>
 
                             </div>
 
-                            <img src={"/images/" + user.photo} className={styles['user-photo']} />
+                            <img src={`${serverURL}/admin/users/${user.id}/photo`} className={styles['user-photo']} />
 
                         </div>
-
+                        <Button id={user.id} action="edit">Editar</Button>
                     </Card>
 
                 ))}
@@ -115,4 +52,13 @@ export default function Index() {
         </Layout>
     )
 
+}
+
+Index.getInitialProps = async (ctx) => {
+    let users = []
+    users = await axios.get(`${serverURL}/admin/users`, config)
+
+    return {
+        "users": users.data
+    }
 }
