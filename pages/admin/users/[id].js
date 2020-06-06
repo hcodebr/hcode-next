@@ -1,23 +1,91 @@
-import { useRouter } from 'next/router'
+
+import { useState } from 'react'
 import HeaderTitle from '../../../components/admin/HeaderTitle'
 import Card from '../../../components/admin/Card'
 import styles from '../../../components/admin/UserEdit.module.css'
 import Button from '../../../components/admin/Button'
 import Layout from '../../../components/admin/Layout'
+import axios from 'axios'
+import { Cookies } from 'react-cookie'
 
-export default function Users() {
-
-    const router = useRouter()
-    const { id } = router.query // Selecionando o ID do usuário pela URL
-
-    const userObj = {
-        id: 9,
-        name: 'João Rangel',
-        email: 'joaohcrangel@gmail.com',
-        date: '18 de março de 2020',
-        photo: 'user-photo.png'
-    }
+const cookies = new Cookies()
+const token = cookies.get('token')
+const config = {
+    header: {Authorization: `Bearer ${token}`}
+}
+export default function Users(props) {
     
+    let date_at = new Date(props.user.birth_at).toISOString().split('T')[0]
+    
+    const [values, setValues] = useState({name:props.user.name, email: props.user.email, password:props.user.password, birth_at:date_at,level:props.user.level, photo:props.user.photo })
+
+    
+    //console.log(props.user)
+    //user.data.map(field => setValue({...values, [field]:value}))
+    
+    let [nameInput, setNameInput] = useState('')
+    let [newPassInput, setNewPassInput] = useState('')
+    let [newPassword, setNewPassword] = useState('')
+    let [confirmPassword, setConfirmPassword] = useState('')
+    let [photo, setPhoto] = useState('')
+
+    const handleInputBlur = e =>{
+        const { name, value } = e.target
+        setValues({...values, [name]:value})
+        console.log(name, value)
+    }
+    const currentPass = async e =>{
+        e.preventDefault()
+        let pass = e.target.value
+        const values = {email: props.user.email, password:pass}
+        let passValid = false;
+        let error =''
+        await axios.post('http://localhost:3333/auths', values)
+        .then(
+            (res)=> {
+                passValid = true;
+            }).catch(err => {
+                passValid = false;
+                error = err.message
+            })
+        if(!passValid){
+            console.log('Senhas atual incorreta!');
+            console.log(error)
+            //nameInput.focus()
+            return
+        }
+        
+    }
+
+    const newPass = e =>{
+        newPassword = e.target.value
+        console.log(newPassword)
+    }
+
+    const confirmPass = e =>{
+        setConfirmPassword(e.target.value)
+        if(confirmPassword != newPassword){
+            alert('Senhas não conferem');
+            newPassInput.focus()
+        }
+        console.log(newPassword, confirmPassword)
+        
+    }
+
+    const foto = e=>{
+        setPhoto(e.target.value)
+        return photo
+    }
+/*
+    for(let campo in user){
+        let value = user[campo]
+        if(campo != 'id' && campo != 'created_at' && campo != 'updated_at'){
+    
+            setValues({...values, [campo]:value})
+            console.log(campo, user[campo])
+        }
+    }
+    */
     return (
         <Layout>
                 
@@ -25,7 +93,7 @@ export default function Users() {
 
             <section className={styles.cards}>
 
-                <Card actions={<Button>Salvar</Button>} className={styles.card}>
+                <Card actions={  <Button id={props.id} action="save" values={values}>Salvar</Button>} className={styles.card}>
 
                     <div className={styles.header}>
 
@@ -45,17 +113,17 @@ export default function Users() {
                     
                     <form className={`${styles['form-user-data']} ${styles.form}`}>
 
-                        <input type="text" placeholder="Nome Completo" />
+                        <input type="text" placeholder="Nome Completo"  defaultValue={values.name} name="name" onBlur={handleInputBlur} />
 
-                        <input type="email" placeholder="E-mail" />
+                        <input type="email" placeholder="E-mail" onBlur={handleInputBlur} name="email" defaultValue={values.email}/>
 
-                        <input type="date" placeholder="Data de Nascimento" />
+                        <input type="date" placeholder="Data de Nascimento" onBlur={handleInputBlur} name="birth_at" defaultValue={values.birth_at}/>
 
                     </form>
-
+                  
                 </Card>
 
-                <Card actions={<Button>Alterar</Button>}>
+                <Card actions={<Button id={props.id} action="savePass">Alterar</Button>}>
 
                     <div className={styles.header}>
                     
@@ -63,19 +131,19 @@ export default function Users() {
 
                     </div>
                     
-                    <form className={styles.form}>
+                <form className={styles.form} encType="multipart/form-data">
 
-                        <input type="password" placeholder="Senha Atual" />
+                        <input type="password" placeholder="Senha Atual" onBlur={currentPass} ref={inputPass => setNameInput(inputPass) }/>
 
-                        <input type="password" placeholder="Nova Senha" />
+                        <input type="password" placeholder="Nova Senha"  onBlur={newPass} ref={newPassInput => setNewPassInput(newPassInput) } />
 
-                        <input type="password" placeholder="Confirme a Nova Senha" />
+                        <input type="password" placeholder="Confirme a Nova Senha"onBlur={confirmPass}name="password" onChange={handleInputBlur}  />
 
                     </form>
 
                 </Card>
 
-                <Card actions={<Button>Escolher Foto</Button>}>
+                <Card actions={<Button id={props.id} action="changePhoto" file={foto}>Escolher Foto</Button>}>
 
                     <div className={styles.header}>
 
@@ -83,7 +151,7 @@ export default function Users() {
 
                     </div>
 
-                    <img src="/images/user-photo.png" className={styles.avatar} />
+                    <img src={`http://localhost:3333/admin/users/${props.id}/photo`} className={styles.avatar} />
 
                 </Card>
 
@@ -92,4 +160,18 @@ export default function Users() {
         </Layout>
     )
 
+}
+
+
+Users.getInitialProps = async ({query}) =>{
+    
+    const { id } = query 
+    let user = []
+   user = await axios.get(`http://localhost:3333/admin/users/${id}`, config)
+  
+   
+   return {
+    "user": user.data,
+    "id": id
+    }
 }

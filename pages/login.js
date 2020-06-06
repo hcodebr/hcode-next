@@ -2,6 +2,7 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 import styles from '../components/Login.module.css'
 import React, {useState} from 'react'
+import Router from 'next/router'
 import Link from 'next/link'
 import axios from 'axios'
 import { Cookies } from 'react-cookie'
@@ -19,16 +20,18 @@ export default function Login(){
         console.log(name, value)
     }
 
-    const handleFormSubmit = e =>{
+    const handleFormSubmit = async e =>{
         e.preventDefault()
-        axios.post('http://localhost:3333/auths', values)
+       await axios.post('http://localhost:3333/auths', values)
         .then(
             (res)=> {
                 const tokenData = res.data.token
                 cookies.set('token', tokenData)
                 console.log('Usuário autenticado!')
-                alert('Usuário autorizado! Vamos para o Admin')
-                window.location.href=("/admin")
+                setToken(tokenData)
+                Router.push('/admin')
+                // alert('Usuário autorizado! Vamos para o Admin')
+                // window.location.href=("/admin")
             }
         )
         .catch(err => console.log('Deu ruim', err.message))

@@ -6,7 +6,7 @@ import axios from 'axios'
 import { Cookies } from 'react-cookie'
 import { handleAuthSSR } from '../../utils/auth'
 
-export default function Index() {
+export default function Index(props) {
 
     const cookies = new Cookies()
     const serverUrl = 'http://localhost:3333'
@@ -14,14 +14,14 @@ export default function Index() {
     return (
         <Layout>
 
-            <HeaderTitle text="Bem Vindo" />
+            <HeaderTitle text={props.res} />
 
         </Layout>
     )
 }
 
 Index.getInitialProps = async (ctx) => {
-    await handleAuthSSR(ctx)
+  const res = await handleAuthSSR(ctx)
 
-    return {}
+    return { "res": res }
 }
