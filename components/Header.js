@@ -19,7 +19,11 @@ export default function Header(){
         
         <header id={styles.header}>
                 <div id={ styles.overlay} data-close="menu"></div>
+<<<<<<< HEAD
                 <a href="/"><img src="images/logo.svg" id={styles.logo} alt="Logo" /></a>
+=======
+                <a href="/"><img src="images/logo.svg" id="logo" alt="Logo" /></a>
+>>>>>>> 4e63c8412cc67cffd3e9f036bc41a6ee6fe39ee5
                 <button type="button" id={ styles['btn-open']} onClick={handleClick}>
                     <svg id="menu-black-18dp" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
                         <style jsx>{`
@@ -36,7 +40,11 @@ export default function Header(){
                         <path id="Caminho_216" data-name="Caminho 216" d="M3,18H29V16H3Zm0-5H29V11H3ZM3,6V8H29V6Z" transform="translate(0 4)"/>
                     </svg>
                 </button>
+<<<<<<< HEAD
     <button type="button" id={ styles['btn-close']} data-close="menu" onClick={handleClick} className={styles[open]}>
+=======
+                <button type="button" id={ styles['btn-close']} data-close="menu" onClick={handleClick}>
+>>>>>>> 4e63c8412cc67cffd3e9f036bc41a6ee6fe39ee5
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                 <style jsx>{`
                                 #caminho {

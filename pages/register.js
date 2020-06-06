@@ -19,7 +19,11 @@ export default function Login(){
     const handleFormSubmit = e =>{
         e.preventDefault()
 
+<<<<<<< HEAD
         axios.post(`https://hcodelab-adonis.herokuapp.com/users`, values)
+=======
+        axios.post(`http://localhost:3333/users`, values)
+>>>>>>> 4e63c8412cc67cffd3e9f036bc41a6ee6fe39ee5
         .then( res => {
             alert(` Olá ${res.data.name} seus dados foram cadastrados ID:${res.data.id}`)
             window.location.href=("/login")
@@ -59,6 +63,7 @@ export default function Login(){
                             </div>
                             <button type="submit">Entrar</button>
                         </div>
+<<<<<<< HEAD
                         <p>Se você já possui uma conta, 
                             
                                 <Link href="/login">
@@ -66,6 +71,9 @@ export default function Login(){
                                 </Link>
                             
                              para fazer o login.</p>
+=======
+                        <p>Se você já possui uma conta, <a href="/login">clique aqui</a> para fazer o login.</p>
+>>>>>>> 4e63c8412cc67cffd3e9f036bc41a6ee6fe39ee5
                     </form>
                 </section>
             </main>

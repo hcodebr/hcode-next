@@ -5,6 +5,7 @@ import Button from '../../../components/admin/Button'
 import Layout from '../../../components/admin/Layout'
 import axios from 'axios'
 import { Cookies } from 'react-cookie'
+import { useState } from 'react'
 
 const cookies = new Cookies()
 const token = cookies.get('token')
@@ -20,7 +21,7 @@ export default function Index(props) {
     return (
         <Layout>
 
-            <HeaderTitle text="Usuários" />
+            <HeaderTitle text={"Usuários"} />
 
             <section className={styles.users}>
 
